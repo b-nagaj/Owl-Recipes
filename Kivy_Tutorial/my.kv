@@ -1,34 +1,15 @@
-WindowManager:
-    MainWindow:
-    SecondWindow:
+<Widgets>
+    Button:
+        text: "Press Me"
+        on_release: root.btn()
 
-<MainWindow>:
-    name: "main"
-
-    GridLayout:
-        cols: 1
-
-        GridLayout
-            cols: 2
-
-            Label:
-                text: "Password: "
-
-            TextInput:
-                id: password
-                multiline: False
-
-        Button:
-            text: "Submit"
-            on_release:
-                app.root.current = "second" if password.text == "Bryce" else "main"
-                root.manager.transition.direction = "left"
-
-<SecondWindow>:
-    name: "second"
+<P>
+    Label:
+        text: "Button Pressed"
+        size_hint: 0.6, 0.2
+        pos_hint: {"x": 0.2, "top": 1}
 
     Button:
-        text: "Go Back"
-        on_release:
-            app.root.current = "main"
-            root.manager.transition.direction = "right"
+        text: "Button Pressed"
+        size_hint: 0.8, 0.2
+        pos_hint: {"x": 0.1, "y": 0.1}
