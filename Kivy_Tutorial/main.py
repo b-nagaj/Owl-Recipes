@@ -1,22 +1,25 @@
 from kivy.app import App  # import kivy components and libraries from kivy
 from kivy.uix.widget import Widget
-from kivy.properties import ObjectProperty
+from kivy.graphics import Rectangle
+from kivy.graphics import Color
 
 
 # handles mouse click/touch events
 class Touch(Widget):
-    btn = ObjectProperty(None)
+    def __init__(self, **kwargs):
+        super(Touch, self).__init__(**kwargs)
 
-    def on_touch_down(self, touch):  # when the mouse button is clicked, print x + y coordinates
+        with self.canvas:
+            Color(1, 0, 0, 0.6, mode='rgba')  # makes the rectangle red
+            self.rectangle = Rectangle(pos=(0, 0), size=(50, 50))  # draw a rectangle in the bottom left of canvas
+
+    def on_touch_down(self, touch):  # when the mouse button is clicked, move the rectangle accordingly and print the x + y coordinates
+        self.rectangle.pos = touch.pos
         print("Mouse Down", touch)
-        self.btn.opacity = 0.5  # highlight when clicked
 
-    def on_touch_move(self, touch):  # when the mouse is dragged, print x + y coordinates
+    def on_touch_move(self, touch):  # when the mouse is dragged, move the rectangle accordingly and print the x + y coordinates
+        self.rectangle.pos = touch.pos
         print("Mouse Move", touch)
-
-    def on_touch_up(self, touch):  # when the mouse button is released, print x + y coordinates
-        print("Mouse Up", touch)
-        self.btn.opacity = 1  # remove highlighting when released
 
 
 # # contains the build method that App utilizes when initialized
