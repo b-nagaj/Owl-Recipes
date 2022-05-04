@@ -1,32 +1,31 @@
 from kivy.app import App  # import kivy components and libraries from kivy
-from kivy.uix.widget import Widget
-from kivy.graphics import Rectangle
-from kivy.graphics import Color
+from kivy.lang import Builder
+from kivy.uix.screenmanager import ScreenManager, Screen
 
 
-# handles mouse click/touch events
-class Touch(Widget):
-    def __init__(self, **kwargs):
-        super(Touch, self).__init__(**kwargs)
+# login page
+class MainWindow(Screen):
+    pass
 
-        with self.canvas:
-            Color(1, 0, 0, 0.6, mode='rgba')  # makes the rectangle red
-            self.rectangle = Rectangle(pos=(0, 0), size=(50, 50))  # draw a rectangle in the bottom left of canvas
 
-    def on_touch_down(self, touch):  # when the mouse button is clicked, move the rectangle accordingly and print the x + y coordinates
-        self.rectangle.pos = touch.pos
-        print("Mouse Down", touch)
+# page after successful login
+class SecondWindow(Screen):
+    pass
 
-    def on_touch_move(self, touch):  # when the mouse is dragged, move the rectangle accordingly and print the x + y coordinates
-        self.rectangle.pos = touch.pos
-        print("Mouse Move", touch)
+
+# manage transitions between the windows
+class WindowManager(ScreenManager):
+    pass
+
+
+kv = Builder.load_file("my.kv")  # process the specified .kv file (doesn't have to match typical naming convention)
 
 
 # # contains the build method that App utilizes when initialized
-class MyApp(App):
+class MyMainApp(App):
     def build(self):
-        return Touch()
+        return kv
 
 
 if __name__ == "__main__":  # tells the python interpreter that this is the main program
-    MyApp().run()
+    MyMainApp().run()
