@@ -29,7 +29,7 @@ class LoginWindow(Screen):
             self.findCredential("passwords.txt", self.password.text)
 
             if self.usernameFound is False or self.passwordFound is False:  # if valid - login, if invalid display a popup message
-                self.showPopupMessage()
+                self.showPopup()
             else:
                 self.login()
 
