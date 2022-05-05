@@ -1,0 +1,223 @@
+WindowManager:
+    LoginWindow:
+        id: LoginWindow
+    CreateAccountWindow:
+        id : CreateAccountWindow
+    QuestionPromptWindow:
+        id: QuestionPromptWindow
+    DisplaySelectedCheckboxWindow:
+        id : DisplaySelectedCheckboxWindow
+
+<LoginWindow>:
+    username: username
+    password: password
+
+    name: "login"
+
+    Label:
+        text:"Login:"
+        font_size: 40
+        size_hint: (0.5, 0.2)
+        pos_hint: {"x": 0.25, "y": 0.8}
+
+    GridLayout:
+        cols:1
+        size_hint: 0.7, 0.2
+        pos_hint: {"x": 0.15, "y": 0.5}
+
+        GridLayout:
+            cols: 2
+
+            Label:
+                text: "Username:"
+                font_size: 40
+
+            TextInput:
+                id: username
+                font_size: 40
+                multiline: False
+
+            Label:
+                text: "Password:"
+                font_size: 40
+
+            TextInput:
+                id: password
+                font_size: 40
+                multiline: False
+
+    Button:
+        text: "Login"
+        font_size: 40
+        size_hint: (0.5, 0.2)
+        pos_hint: {"x": 0, "left": 0}
+        on_press: root.loginBtnClick()
+        on_release:
+            root.manager.transition.direction = "left"
+
+    Button:
+        text: "Create Account"
+        font_size: 40
+        size_hint: (0.5, 0.2)
+        pos_hint: {"x": 0.5, "left": 0.5}
+        on_release:
+            app.root.current = "createAccount"
+            root.manager.transition.direction = "left"
+
+<CreateAccountWindow>:
+    username: username
+    password: password
+
+    name: "createAccount"
+
+    Label:
+        text:"Create Account:"
+        font_size: 40
+        size_hint: (0.5, 0.2)
+        pos_hint: {"x": 0.25, "y": 0.8}
+
+    GridLayout:
+        cols:1
+        size_hint: 0.7, 0.2
+        pos_hint: {"x": 0.15, "y": 0.5}
+
+        GridLayout:
+            cols: 2
+
+            Label:
+                text: "Username:"
+                font_size: 40
+
+            TextInput:
+                id: username
+                font_size: 40
+                multiline: False
+
+            Label:
+                text: "Password:"
+                font_size: 40
+
+            TextInput:
+                id: password
+                font_size: 40
+                multiline: False
+
+    Button:
+        text: "Go Back"
+        font_size: 40
+        size_hint: (0.5, 0.2)
+        pos_hint: {"x": 0, "left": 0}
+        on_release:
+            app.root.current = "login"
+            root.manager.transition.direction = "right"
+
+    Button:
+        text: "Submit"
+        font_size: 40
+        size_hint: (0.5, 0.2)
+        pos_hint: {"x": 0.5, "left": 0.5}
+        on_press: root.createAccount()
+        on_release:
+            app.root.current = "login"
+            root.manager.transition.direction = "right"
+
+<IncorrectLoginPopup>
+    Label:
+        text: "Incorrect Login\n Credentials"
+        font_size: 40
+        size_hint: 0.6, 0.2
+        pos_hint: {"x": 0.2, "top": 0.9}
+
+<QuestionPromptWindow>:
+    name: "questionPrompt"
+
+    Label:
+        text:"Choose An Option:"
+        font_size: 40
+        size_hint: (0.5, 0.2)
+        pos_hint: {"x": 0.25, "y": 0.8}
+
+    BoxLayout:
+        orientation: "vertical"
+        size_hint: 0.8, 0.4
+        pos_hint: {"x": 0.2, "y": 0.35}
+
+        GridLayout:
+            cols: 2
+
+            Label:
+                text: "Kivy Is Awesome"
+                font_size: 40
+
+            CheckBox:
+                text: "Kivy Is Awesome"
+                group: "check"
+                on_active: root.checkboxClick(self, self.active, self.text)
+
+            Label:
+                text: "Kivy Sucks"
+                font_size: 40
+
+            CheckBox:
+                text: "Kivy Sucks"
+                group: "check"
+                on_active: root.checkboxClick(self, self.active, self.text)
+
+            Label:
+                text: "Kivy Is Scum Of The Earth"
+                font_size: 40
+
+            CheckBox:
+                text: "Kivy Is Scum Of The Earth"
+                group: "check"
+                on_active: root.checkboxClick(self, self.active, self.text)
+
+    Button:
+        text: "Go Back"
+        font_size: 40
+        size_hint: (0.5, 0.2)
+        pos_hint: {"x": 0, "left": 0}
+        on_release:
+            app.root.current = "login"
+            root.manager.transition.direction = "right"
+
+    Button:
+        text: "Submit"
+        font_size: 40
+        size_hint: (0.5, 0.2)
+        pos_hint: {"x": 0.5, "left": 0.5}
+        on_release:
+            app.root.current = "selectedCheckbox"
+            root.manager.transition.direction = "left"
+
+<DisplaySelectedCheckboxWindow>:
+    name: "selectedCheckbox"
+
+    Label:
+        text: "Your Answer was:"
+        font_size: 40
+        size_hint: (0.5, 0.2)
+        pos_hint: {"x": 0.25, "y": 0.8}
+
+    Label:
+        id: selectedCheckbox
+        text: ""
+        size_hint: (0.5, 0.2)
+        pos_hint: {"x": 0.25, "y": 0.6}
+        font_size: 40
+
+    Button:
+        text: "Go Back"
+        size_hint: (0.5, 0.2)
+        pos_hint: {"x": 0, "left": 0}
+        font_size: 40
+        on_release:
+            app.root.current = "questionPrompt"
+            root.manager.transition.direction = "right"
+
+    Button:
+        text: "Exit"
+        font_size: 40
+        size_hint: (0.5, 0.2)
+        pos_hint: {"x": 0.5, "left": 0.5}
+        on_press: root.exitApp()
